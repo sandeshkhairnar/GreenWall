@@ -1,7 +1,15 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Plus, ChevronDown, Leaf, Sun, Moon, Cloud } from 'lucide-react';
-
+type Butterfly = {
+  id: number;
+  x: number;
+  y: number;
+  delay: number;
+  duration: number;
+  size: number;
+  color: string;
+};
 const GreenWall = () => {
   const [notes, setNotes] = useState([
     { id: 1, date: '2024-12-01', text: 'Started my mindfulness journey. Feeling hopeful.', mood: 'calm', emoji: '🌱' },
@@ -22,7 +30,7 @@ const GreenWall = () => {
   const [selectedEmoji, setSelectedEmoji] = useState('🌱');
   const [scrollProgress, setScrollProgress] = useState(0);
   const [timeOfDay, setTimeOfDay] = useState('day');
-  const [butterflies, setButterflies] = useState([]);
+const [butterflies, setButterflies] = useState<Butterfly[]>([]);
 
   const emojis = ['🌱', '🍃', '🌸', '🌿', '🌾', '🌻', '🍂', '☁️', '🌧️', '🧘'];
   
@@ -56,11 +64,11 @@ const GreenWall = () => {
     setButterflies(initialButterflies);
   }, []);
 
-  const handleScroll = (e) => {
-    const element = e.target;
-    const scrollPercentage = (element.scrollTop / (element.scrollHeight - element.clientHeight)) * 100;
-    setScrollProgress(scrollPercentage);
-  };
+const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+  const element = e.currentTarget; // use currentTarget, not target
+  const scrollPercentage = (element.scrollTop / (element.scrollHeight - element.clientHeight)) * 100;
+  setScrollProgress(scrollPercentage);
+};
 
   const handleAddNote = () => {
     if (newNote.trim()) {
@@ -274,7 +282,7 @@ const GreenWall = () => {
                   <div className={`absolute ${isLeft ? '-right-14' : '-left-14'} top-1/2 -translate-y-1/2 w-8 h-8 bg-green-500 rounded-full border-4 border-white shadow-lg flex items-center justify-center`}>
                     <Leaf className="w-4 h-4 text-white" />
                   </div>
-
+{/* 
                   <div 
                     className={`bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all p-6 border-2 ${moodColors[note.mood] || 'border-gray-200'} transform hover:scale-105 hover:-rotate-1`}
                     style={{
@@ -296,7 +304,7 @@ const GreenWall = () => {
                     </div>
                     
                     <div className="absolute -bottom-2 -right-2 w-full h-full bg-green-100/50 rounded-2xl -z-10"></div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             );
